@@ -59,15 +59,17 @@
   }
 
   function setDesiredRotation(x, y) {
-    if (desiredRotation.x != 0 || desiredRotation.y != 0) {
-      // only set rotation in one axis
-      return;
-    }
-    if (x != 0) {
-      desiredRotation.x = x;
-    }
-    if (y != 0) {
-      desiredRotation.y = y;
+    if (rotate) {
+      if (desiredRotation.x != 0 || desiredRotation.y != 0) {
+        // only set rotation in one axis
+        return;
+      }
+      if (x != 0) {
+        desiredRotation.x = x;
+      }
+      if (y != 0) {
+        desiredRotation.y = y;
+      }
     }
   }
 
@@ -109,11 +111,9 @@
 
   function update() {
     renderer.render(scene, camera);
-    if (rotate) {
-      let rot = getDesiredRotation();
-      rotateAroundWorldMatrix(cube, xAxis, rot.x);
-      rotateAroundWorldMatrix(cube, yAxis, rot.y);
-    }
+    let rot = getDesiredRotation();
+    rotateAroundWorldMatrix(cube, xAxis, rot.x);
+    rotateAroundWorldMatrix(cube, yAxis, rot.y);
     requestAnimationFrame(update);
   }
 
